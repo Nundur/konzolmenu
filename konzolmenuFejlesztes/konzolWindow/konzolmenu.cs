@@ -492,6 +492,137 @@ namespace konzolmenuFejlesztes
             } while (true);
         }
 
+        public char[,] MTextBox(int x, int y, int szelesseg, int hosszusag, ConsoleColor ForeGround, ConsoleColor BackGround, ConsoleKey kilepes)
+        {
+            List<char> szoveg = new List<char>();
+            char[,] returner = new char[hosszusag, szelesseg];
+            ConsoleKeyInfo keyInfo;
+            Console.SetCursorPosition(x, y);
+            Ablak(x, y, szelesseg, hosszusag, BackGround, false, 0);
+            Console.ForegroundColor = ForeGround;
+            Console.BackgroundColor = BackGround;
+            int holx = 0;
+            int holy = 0;
+            //for (int i = 0; i < hossz; i++) Console.Write(" ");
+            Console.SetCursorPosition(x+holx, y+holy);
+            do
+            {
+                Console.SetCursorPosition(x+holx, y+holy);
+                keyInfo = Console.ReadKey(true);
+                if (keyInfo.Key == ConsoleKey.Backspace)
+                {
+                    if (!(holx ==0 && holy ==0))
+                    {
+                        if (holx>0)
+                        {
+                            holx--;
+                            Console.SetCursorPosition(x + holx, y + holy);
+                            Console.Write(' ');
+                            returner[holy, holx] = '\0';
+                            Console.SetCursorPosition(x + holx, y + holy);
+                        } else
+                        {
+                            holx = szelesseg-1;
+                            holy--;
+                            Console.SetCursorPosition(x + holx, y + holy);
+                            Console.Write(' ');
+                            returner[holy, holx] = '\0';
+                        }
+                        //holx = szelesseg - 1;
+                    }
+
+                }
+                else
+                {
+                    //enter kezelése
+                    if (keyInfo.Key == ConsoleKey.Enter)
+                    {
+                        if (holy < hosszusag - 1)
+                        {
+                            holx = 0;
+                            holy++;
+                            Console.SetCursorPosition(x + holx, y + holy);
+                        }
+                        continue;//ez azért kell mer a readKey enterje bezavar
+                    }
+                    //nyilakkal tudj mozogni mer mier ne
+                    switch (keyInfo.Key)
+                    {
+                        case ConsoleKey.UpArrow:
+                            if (holy > 0)
+                            {
+                                //holx = 0;
+                                holy--;
+                                Console.SetCursorPosition(x + holx, y + holy);
+                                //ez azért kell mer a readKey enterje bezavar
+                            }
+                            continue;
+                        case ConsoleKey.DownArrow:
+                            if (holy < hosszusag-1)
+                            {
+                                //holx = 0;
+                                holy++;
+                                Console.SetCursorPosition(x + holx, y + holy);
+                                //ez azért kell mer a readKey enterje bezavar
+                            }
+                            continue;
+
+                        case ConsoleKey.RightArrow:
+                            if (holx < szelesseg-1)
+                            {
+                                //holx = 0;
+                                holx++;
+                                Console.SetCursorPosition(x + holx, y + holy);
+                                //ez azért kell mer a readKey enterje bezavar
+                            }
+                            continue;
+                        case ConsoleKey.LeftArrow:
+                            if (holx > 0)
+                            {
+                                //holx = 0;
+                                holx--;
+                                Console.SetCursorPosition(x + holx, y + holy);
+                                //ez azért kell mer a readKey enterje bezavar
+                            }
+                            continue;
+                        default:
+                            break;
+                    }
+
+
+
+                    if (keyInfo.Key != kilepes)
+                    {
+                        if (holx<= szelesseg-1)
+                        {
+                            //holx = 0;
+                            Console.SetCursorPosition(x+holx, y+holy);
+                            Console.Write(keyInfo.KeyChar);
+                            returner[holy, holx] = keyInfo.KeyChar;
+                            holx++;
+                        }
+                        else
+                        {
+                            if (holy<=hosszusag-2)
+                            {
+                                holx = 0;
+                                holy++;
+                                Console.SetCursorPosition(x + holx, y + holy);
+                                Console.Write(keyInfo.KeyChar);
+                                holx++;
+                                returner[holy, holx] = keyInfo.KeyChar;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return returner;
+                    }
+                }
+            } while (true);
+        }
+
+
         //✅️
         public void progressBar(int x, int y, int szelesseg, int hossz, ConsoleColor ForeGround, ConsoleColor BackGround, int miliSec)
         {
