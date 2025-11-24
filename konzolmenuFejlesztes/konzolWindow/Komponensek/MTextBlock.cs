@@ -27,7 +27,7 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
         public override void Draw(int x, int y)
         {
             konzolmenu konzolmenu = new konzolmenu();
-            konzolmenu.MTextBlock(szoveg, x, y, ForeGround, BackGround);
+            konzolmenu.MTextBlock(szoveg, x+Rx, y+Ry, ForeGround, BackGround);
         }
 
         public override object Update(int x, int y)
