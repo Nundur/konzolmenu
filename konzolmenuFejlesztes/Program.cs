@@ -15,13 +15,21 @@ namespace konzolmenuFejlesztes
             konzolmenu konzolmenu = new konzolmenu();
             Console.SetBufferSize(200, 200);
             Console.SetWindowSize(150, 50);
+            Console.Title = "konzol menu teszt";
 
             List<KonzolKomponens> Komponensek = new List<KonzolKomponens>();
-            string[] menupontok = { "Menü teszt", "Menu t 2", "asdasd",  "Kilepes" };
-            Komponensek.Add(new MenuLista(menupontok, 2, 3, 10, 10, ConsoleColor.Black, ConsoleColor.Gray, ConsoleColor.Gray, ConsoleColor.Green, Orientation.vertical, true));
-            Komponensek.Add(new TextBox(24, 3, 15, ConsoleColor.Black, ConsoleColor.White, false));
-            Komponensek.Add(new MTextBox(24, 5, 34, 8, ConsoleColor.Black, ConsoleColor.Gray, ConsoleKey.Tab));
-            Komponensek.Add(new ProgressBar(2, 15, 55, 2, ConsoleColor.DarkGreen, ConsoleColor.White, 20)) ;
+            string[] menupontok = {"DKK-101", "DKK-102", "DKK-103", "DKK-104", "DKK-105", "DKK-106" };
+            //Komponensek.Add(new MenuLista(menupontok, 2, 3, 10, 10, ConsoleColor.Black, ConsoleColor.Gray, ConsoleColor.Gray, ConsoleColor.Green, Orientation.vertical, true));
+            Komponensek.Add(new MenuLista().Contain(menupontok)
+                .Position(2, 3).Size(15, 10)
+                .Color(ConsoleColor.Black, ConsoleColor.Gray, ConsoleColor.Gray, ConsoleColor.Green)
+                .OrientShadow(Orientation.vertical, true).showScroll(true));
+
+
+            Komponensek.Add(new TextBox(24, 3, 15, ConsoleColor.Black, ConsoleColor.White, false));//24, 5, 34, 8, ConsoleColor.Black, ConsoleColor.Gray, ConsoleKey.Tab)
+            //Komponensek.Add(new MTextBox().Position(24, 5).Size(34, 8).Color(ConsoleColor.Black, ConsoleColor.Gray).ExitB(ConsoleKey.Tab));
+            Komponensek.Add(new MTextBox().Construct(24, 5, 34, 8, ConsoleColor.Black, ConsoleColor.Gray, ConsoleKey.Tab));
+            Komponensek.Add(new ProgressBar().Construct(2, 15, 55, 2, ConsoleColor.DarkGreen, ConsoleColor.White, 20)) ;
 
             //Komponensek.Add(new KonzolWindow(5, 6, 10, 10, ConsoleColor.DarkRed, ConsoleColor.White, true, ConsoleColor.DarkGray, ConsoleColor.Black, "HIBA", '═', true, new List<KonzolKomponens>())) ;
             //KonzolWindow konzolWindow = new KonzolWindow(20, 15, 60, 20, ConsoleColor.DarkGray, ConsoleColor.White, true, ConsoleColor.DarkGray, ConsoleColor.Black,"Teszt. MTextBoxbol kilepes TAB", '═', true, Komponensek);
@@ -41,39 +49,29 @@ namespace konzolmenuFejlesztes
 
 
             konzolWindow.DrawKomponensek();
-            //Console.ReadKey(true);
 
-            //aki ezt a projektet nezi : a kövi pár kommentelt valamit szard le
 
-            //konzolmenu.TextBox(22, 18, 10, ConsoleColor.Black, ConsoleColor.White, false);
-            //char[,] asd = konzolmenu.MTextBox(22, 18, 40, 8, ConsoleColor.Black, ConsoleColor.White, ConsoleKey.Tab);
 
-            /*
-            Console.SetCursorPosition(0, 0);
-            for (int i = 0; i < asd.GetLength(0); i++)
-            {
-                for (int k = 0; k < asd.GetLength(1); k++)
-                {
-                    Console.Write(asd[i, k]);
-                }
-                Console.WriteLine();
-            }*/
+            konzolmenu.Ablak(0, 0, 150, 1, ConsoleColor.Gray, false, 0);
+            MenuLista fejlec = new MenuLista().Contain(menupontok)
+                .Position(0, 0).Size(10, 10)
+                .Color(ConsoleColor.Black, ConsoleColor.Gray, ConsoleColor.Gray, ConsoleColor.Green)
+                .OrientShadow(Orientation.horizontal, false);
+            fejlec.Draw(0, 0);
+            //fejlec.Update(0, 0);
+
+
 
 
             //ide jön a projekted logikája
             konzolWindow.UpdateKomponensek(() =>
             {
-            
                 foreach (var asd in konzolWindow.Komponensek)
                 {
                     asd.Update(konzolWindow.x, konzolWindow.y);
                     //és ide jön a logika
                 }
-
-
             });
-
-            //konzolmenu.progressBar(25, 20, 40, 2, ConsoleColor.DarkGreen, ConsoleColor.White, 100);
             Console.ReadKey();
 
 

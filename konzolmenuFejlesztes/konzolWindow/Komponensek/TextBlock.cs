@@ -9,19 +9,41 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
     class TextBlock : KonzolKomponens
     {
         //string szoveg, int x, int y, ConsoleColor ForeGround, ConsoleColor BackGround
-        public string szoveg { get; set; }
-        public override int Rx{ get; set; }
-        public override int Ry{ get; set; }
-        public ConsoleColor ForeGround { get; set; }
-        public ConsoleColor BackGround { get; set; }
+        public string szoveg { get; set; } = "betmen";
+        public override int Rx { get; set; } = 0;
+        public override int Ry { get; set; } = 0;
+        public ConsoleColor ForeGround { get; set; } = ConsoleColor.Black;
+        public ConsoleColor BackGround { get; set; } = ConsoleColor.White;
 
-        public TextBlock(string szoveg, int rx, int ry, ConsoleColor foreGround, ConsoleColor backGround)
+        public TextBlock Text(string text)
         {
             this.szoveg = szoveg;
+            return this;
+        }
+        public TextBlock Position(int rx, int ry)
+        {
             Rx = rx;
             Ry = ry;
+            return this;
+        }
+        public TextBlock Color(ConsoleColor ForeGround, ConsoleColor BackGround)
+        {
+            this.ForeGround = ForeGround;
+            this.BackGround = BackGround;
+            return this;
+        }
+
+
+        public TextBlock Construct(string szoveg, int rx, int ry, ConsoleColor foreGround, ConsoleColor backGround)
+        {
+            this.szoveg = szoveg;
+            //
+            Rx = rx;
+            Ry = ry;
+            //
             ForeGround = foreGround;
             BackGround = backGround;
+            return this;
         }
 
         public override void Draw(int x, int y)

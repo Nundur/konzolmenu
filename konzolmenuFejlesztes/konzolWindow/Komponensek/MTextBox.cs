@@ -13,15 +13,40 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
         //ConsoleKey kilepes
 
 
-        public override int Rx { get; set; }
-        public override int Ry { get; set; }
-        public int szelesseg { get; set; }
-        public int hosszusag { get; set; }
-        public ConsoleColor ForeGround { get; set; }
-        public ConsoleColor BackGround { get; set; }
-        public ConsoleKey kilepes { get; set; }
+        public override int Rx { get; set; } = 0;
+        public override int Ry { get; set; } = 0;
+        public int szelesseg { get; set; } = 10;
+        public int hosszusag { get; set; } = 10;
+        public ConsoleColor ForeGround { get; set; } = ConsoleColor.Black;
+        public ConsoleColor BackGround { get; set; } = ConsoleColor.White;
+        public ConsoleKey kilepes { get; set; } = ConsoleKey.Tab;
 
-        public MTextBox(int rx, int ry, int szelesseg, int hosszusag, ConsoleColor foreGround, ConsoleColor backGround, ConsoleKey kilepes)
+        
+        public MTextBox Position(int rx, int ry)
+        {
+            Rx = rx;
+            Ry = ry;
+            return this;
+        }
+        public MTextBox Size(int Width, int Height)
+        {
+            this.szelesseg = Width;
+            this.hosszusag = Height;
+            return this;
+        }
+        public MTextBox Color(ConsoleColor ForeGround, ConsoleColor BackGround)
+        {
+            this.ForeGround = ForeGround;
+            this.BackGround = BackGround;
+            return this;
+        }
+        public MTextBox ExitB(ConsoleKey kilepes)
+        {
+            this.kilepes = kilepes;
+            return this;
+        }
+
+        public MTextBox Construct(int rx, int ry, int szelesseg, int hosszusag, ConsoleColor foreGround, ConsoleColor backGround, ConsoleKey kilepes)
         {
             Rx = rx;
             Ry = ry;
@@ -30,6 +55,7 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
             ForeGround = foreGround;
             BackGround = backGround;
             this.kilepes = kilepes;
+            return this;
         }
 
         public override void Draw(int x, int y)

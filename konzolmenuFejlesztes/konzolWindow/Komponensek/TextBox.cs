@@ -11,12 +11,12 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
         //int x, int y, int hossz, ConsoleColor ForeGround, ConsoleColor BackGround, bool passProtected
 
 
-        public override int Rx { get; set; }
-        public override int Ry { get; set; }
-        public int hossz { get; set; }
-        public ConsoleColor ForeGround { get; set; }
-        public ConsoleColor BackGround { get; set; }
-        public bool passProtected { get; set; }
+        public override int Rx { get; set; } = 0;
+        public override int Ry { get; set; } = 0;
+        public int hossz { get; set; } = 10;
+        public ConsoleColor ForeGround { get; set; } = ConsoleColor.Black;
+        public ConsoleColor BackGround { get; set; } = ConsoleColor.White;
+        public bool passProtected { get; set; } = false;
 
         public TextBox(int x, int y, int hossz, ConsoleColor foreGround, ConsoleColor backGround, bool passProtected)
         {

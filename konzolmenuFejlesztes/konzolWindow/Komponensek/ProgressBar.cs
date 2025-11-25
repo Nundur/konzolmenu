@@ -15,23 +15,52 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
 
 
 
-        public override int Rx { get; set; }
-        public override int Ry { get; set; }
-        public int szelesseg { get; set; }
-        public int hossz { get; set; }
-        public ConsoleColor ForeGround { get; set; }
-        public ConsoleColor BackGround { get; set; }
-        public int miliSec { get; set; }
+        public override int Rx { get; set; } = 0;
+        public override int Ry { get; set; } = 0;
+        public int szelesseg { get; set; } = 10;
+        public int hossz { get; set; } = 2;
+        public ConsoleColor ForeGround { get; set; } = ConsoleColor.Green;
+        public ConsoleColor BackGround { get; set; } = ConsoleColor.White;
+        public int miliSec { get; set; } = 20;
 
-        public ProgressBar(int rx, int ry, int szelesseg, int hossz, ConsoleColor foreGround, ConsoleColor backGround, int miliSec)
+
+        public ProgressBar Position(int rx, int ry)
         {
             Rx = rx;
             Ry = ry;
+            return this;
+        }
+        public ProgressBar Size(int Width, int Height)
+        {
+            this.szelesseg = Width;
+            this.hossz = Height;
+            return this;
+        }
+        public ProgressBar Color(ConsoleColor ForeGround, ConsoleColor BackGround)
+        {
+            this.ForeGround = ForeGround;
+            this.BackGround = BackGround;
+            return this;
+        }
+        public ProgressBar MiliSec(int miliSec)
+        {
+            this.miliSec = miliSec;
+            return this;
+        }
+
+        public ProgressBar Construct(int rx, int ry, int szelesseg, int hossz, ConsoleColor foreGround, ConsoleColor backGround, int miliSec)
+        {
+            Rx = rx;
+            Ry = ry;
+            //
             this.szelesseg = szelesseg;
             this.hossz = hossz;
+            //
             ForeGround = foreGround;
             BackGround = backGround;
+            //
             this.miliSec = miliSec;
+            return this;
         }
 
         public override void Draw(int x, int y)

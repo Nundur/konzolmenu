@@ -314,66 +314,51 @@ namespace konzolmenuFejlesztes
         /// MenuLista(tomb, x, y, szelesseg, hosszusag, foregoundcolor, backgroundcolor, menucolor, selectedMenuColor, orientation (amugy vertical))
         /// </summary>
         /// //✅️
-        public int MenuLista(string[] elemek, int x, int y, int szelesseg, int hosszusag, ConsoleColor ForeGround, ConsoleColor BackGround, ConsoleColor Menu, ConsoleColor SelectedMenu, Orientation merre = Orientation.vertical, bool arnyek = false)
+        public int MenuLista(string[] elemek, int x, int y, int szelesseg, int hosszusag, ConsoleColor ForeGround, ConsoleColor BackGround, ConsoleColor Menu, ConsoleColor SelectedMenu, Orientation merre = Orientation.vertical, bool arnyek = false, bool showScroll = true)
         {
             int eredetix = x;
             int eredetiy = y;
             int kivalasztott = 1;
             bool igaze = true;
-            if (hosszusag == 0)
-            {
-                hosszusag = elemek.Length;
-            }
-            if (szelesseg == 0)
-            {
-                szelesseg = elemek.OrderBy(asd => asd.Length).First().Length;
-            }
+            if (hosszusag == 0) hosszusag = elemek.Length;
+            if (szelesseg == 0) szelesseg = elemek.OrderBy(asd => asd.Length).First().Length;
             if (merre == Orientation.vertical) Ablak(x, y, szelesseg, hosszusag, BackGround, arnyek, 0);
             else Ablak(x, y, szelesseg * elemek.Length, 1, BackGround, arnyek, 0);
-
             Console.ForegroundColor = ForeGround;
             while (igaze)
             {
                 Console.SetCursorPosition(x, y);
                 for (int i = 0; i < hosszusag; i++)
                 {
-                    if (merre == Orientation.vertical)
-                    {
-                        Console.SetCursorPosition(x, y + i);
-                    }
+                    if (merre == Orientation.vertical) Console.SetCursorPosition(x, y + i);
                     else if (merre == Orientation.horizontal) Console.SetCursorPosition(x + (i * hosszusag), y);
-
                     if (i < elemek.Length)
                     {
-
-
                         if (kivalasztott > hosszusag)
                         {
                             if (i == hosszusag - 1) Console.BackgroundColor = SelectedMenu;
                             Console.Write(elemek[i + kivalasztott - hosszusag]);
-                            for (int k = 0; k < szelesseg - (elemek[i + kivalasztott - hosszusag]).Length; k++)
-                            {
-                                Console.Write(" ");
-                            }
-                        }
-                        else
+                            for (int k = 0; k < szelesseg - (elemek[i + kivalasztott - hosszusag]).Length; k++) Console.Write(" ");
+                        }else
                         {
                             if (kivalasztott - 1 == i) Console.BackgroundColor = SelectedMenu;
                             Console.Write(elemek[i]);
-                            for (int k = 0; k < szelesseg - elemek[i].Length; k++)
-                            {
-                                Console.Write(" ");
-                            }
+                            for (int k = 0; k < szelesseg - elemek[i].Length; k++) Console.Write(" ");
                         }
-
                     }
-
-
-
                     Console.BackgroundColor = Menu;
-
                 }
-                Console.SetCursorPosition(x + szelesseg - 1, y);
+                if (showScroll)//scroll
+                {
+                    Line('║', hosszusag, x + szelesseg-1, y, Orientation.vertical, ForeGround, BackGround);
+                    Console.SetCursorPosition(x+szelesseg-1, y);
+                    Console.Write('O');
+                    Console.SetCursorPosition(x + szelesseg - 1, y+hosszusag-1);
+                    Console.Write('O');
+                    Console.SetCursorPosition(x + szelesseg - 1, y+1+(int)((double)(kivalasztott - 1) / (elemek.Length - 1) * (hosszusag-3)));
+                    Console.Write('█');
+                }
+                Console.SetCursorPosition(x + szelesseg - 1, y);//hogy a listán kívül ne irjon semmit
                 //billentyuvárás
                 switch (Console.ReadKey().Key)
                 {
@@ -412,7 +397,6 @@ namespace konzolmenuFejlesztes
                         kivalasztott = -2;
                         igaze = false;
                         break;
-
                 }
                 x = eredetix;
                 y = eredetiy;
