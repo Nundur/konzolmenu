@@ -8,15 +8,15 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
 {
     class MTextBox : KonzolKomponens
     {
-        //int x, int y, int szelesseg, int hosszusag,
+        //int x, int y, int width, int height,
         //ConsoleColor ForeGround, ConsoleColor BackGround,
         //ConsoleKey kilepes
 
 
         public override int Rx { get; set; } = 0;
         public override int Ry { get; set; } = 0;
-        public int szelesseg { get; set; } = 10;
-        public int hosszusag { get; set; } = 10;
+        public override int width { get; set; } = 10;
+        public override int height { get; set; } = 10;
         public ConsoleColor ForeGround { get; set; } = ConsoleColor.Black;
         public ConsoleColor BackGround { get; set; } = ConsoleColor.White;
         public ConsoleKey kilepes { get; set; } = ConsoleKey.Tab;
@@ -30,8 +30,8 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
         }
         public MTextBox Size(int Width, int Height)
         {
-            this.szelesseg = Width;
-            this.hosszusag = Height;
+            this.width = Width;
+            this.height = Height;
             return this;
         }
         public MTextBox Color(ConsoleColor ForeGround, ConsoleColor BackGround)
@@ -46,12 +46,12 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
             return this;
         }
 
-        public MTextBox Construct(int rx, int ry, int szelesseg, int hosszusag, ConsoleColor foreGround, ConsoleColor backGround, ConsoleKey kilepes)
+        public MTextBox Construct(int rx, int ry, int width, int height, ConsoleColor foreGround, ConsoleColor backGround, ConsoleKey kilepes)
         {
             Rx = rx;
             Ry = ry;
-            this.szelesseg = szelesseg;
-            this.hosszusag = hosszusag;
+            this.width = width;
+            this.height = height;
             ForeGround = foreGround;
             BackGround = backGround;
             this.kilepes = kilepes;
@@ -61,13 +61,13 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
         public override void Draw(int x, int y)
         {
             konzolmenu konzolmenu = new konzolmenu();
-            konzolmenu.Ablak(Rx+x, Ry+y, szelesseg, hosszusag, BackGround, false, 0);
+            konzolmenu.Ablak(Rx+x, Ry+y, width, height, BackGround, false, 0);
         }
 
         public override object Update(int x, int y)
         {
             konzolmenu konzolmenu = new konzolmenu();
-            return konzolmenu.MTextBox(x+Rx, y+Ry, szelesseg, hosszusag, ForeGround, BackGround, kilepes);
+            return konzolmenu.MTextBox(x+Rx, y+Ry, width, height, ForeGround, BackGround, kilepes);
         }
     }
 }

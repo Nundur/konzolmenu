@@ -11,8 +11,8 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
         public override int Rx { get; set; }
         public override int Ry { get; set; }
 
-        public int Width { get; set; }
-        public int Height { get; set; }
+        public override int width { get; set; }
+        public override int height { get; set; }
 
         public int Columns { get; set; }
         public int Rows { get; set; }
@@ -23,8 +23,8 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
         {
             Rx = x;
             Ry = y;
-            Width = width;
-            Height = height;
+            this.width = width;
+            this.height = height;
             Columns = columns;
             Rows = rows;
             Children = Childreen;
@@ -37,8 +37,8 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
 
         public override void Draw(int px, int py)
         {
-            int cellW = Width / Columns;
-            int cellH = Height / Rows;
+            int cellW = width / Columns;
+            int cellH = height / Rows;
 
             for (int i = 0; i < Children.Count; i++)
             {
@@ -54,8 +54,8 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
 
         public override object Update(int px, int py)
         {
-            int cellW = Width / Columns;
-            int cellH = Height / Rows;
+            int cellW = width / Columns;
+            int cellH = height / Rows;
 
             object lastResult = null;
 

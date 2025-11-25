@@ -21,15 +21,14 @@ namespace konzolmenuFejlesztes
             string[] menupontok = {"DKK-101", "DKK-102", "DKK-103", "DKK-104", "DKK-105", "DKK-106" };
             //Komponensek.Add(new MenuLista(menupontok, 2, 3, 10, 10, ConsoleColor.Black, ConsoleColor.Gray, ConsoleColor.Gray, ConsoleColor.Green, Orientation.vertical, true));
             Komponensek.Add(new MenuLista().Contain(menupontok)
-                .Position(2, 3).Size(15, 10)
+                .Position(4, 4).Size(15, 10)
                 .Color(ConsoleColor.Black, ConsoleColor.Gray, ConsoleColor.Gray, ConsoleColor.Green)
                 .OrientShadow(Orientation.vertical, true).showScroll(true));
 
-
-            Komponensek.Add(new TextBox(24, 3, 15, ConsoleColor.Black, ConsoleColor.White, false));//24, 5, 34, 8, ConsoleColor.Black, ConsoleColor.Gray, ConsoleKey.Tab)
+            Komponensek.Add(new TextBox().Construct(24, 4, 15, ConsoleColor.Black, ConsoleColor.White, false));//24, 5, 34, 8, ConsoleColor.Black, ConsoleColor.Gray, ConsoleKey.Tab)
             //Komponensek.Add(new MTextBox().Position(24, 5).Size(34, 8).Color(ConsoleColor.Black, ConsoleColor.Gray).ExitB(ConsoleKey.Tab));
-            Komponensek.Add(new MTextBox().Construct(24, 5, 34, 8, ConsoleColor.Black, ConsoleColor.Gray, ConsoleKey.Tab));
-            Komponensek.Add(new ProgressBar().Construct(2, 15, 55, 2, ConsoleColor.DarkGreen, ConsoleColor.White, 20)) ;
+            Komponensek.Add(new MTextBox().Construct(24, 6, 34, 8, ConsoleColor.Black, ConsoleColor.Gray, ConsoleKey.Tab));
+            Komponensek.Add(new ProgressBar().Construct(4, 16, 55, 2, ConsoleColor.DarkGreen, ConsoleColor.White, 20)) ;
 
             //Komponensek.Add(new KonzolWindow(5, 6, 10, 10, ConsoleColor.DarkRed, ConsoleColor.White, true, ConsoleColor.DarkGray, ConsoleColor.Black, "HIBA", '═', true, new List<KonzolKomponens>())) ;
             //KonzolWindow konzolWindow = new KonzolWindow(20, 15, 60, 20, ConsoleColor.DarkGray, ConsoleColor.White, true, ConsoleColor.DarkGray, ConsoleColor.Black,"Teszt. MTextBoxbol kilepes TAB", '═', true, Komponensek);
@@ -40,7 +39,7 @@ namespace konzolmenuFejlesztes
             //----------ez az új változtatás:---------------
             KonzolWindow konzolWindow = new KonzolWindow()
                 .Position(20, 15)
-                .Size(60, 20)
+                .Size(68, 23)
                 .Color(ConsoleColor.White, ConsoleColor.DarkGray)
                 .Shadow(true, ConsoleColor.DarkGray, ConsoleColor.Black)
                 .Title("Teszt. MTextBoxbol kilepes TAB")
@@ -51,7 +50,7 @@ namespace konzolmenuFejlesztes
             konzolWindow.DrawKomponensek();
 
 
-
+            /* //(fejlec teszt)
             konzolmenu.Ablak(0, 0, 150, 1, ConsoleColor.Gray, false, 0);
             MenuLista fejlec = new MenuLista().Contain(menupontok)
                 .Position(0, 0).Size(10, 10)
@@ -59,6 +58,10 @@ namespace konzolmenuFejlesztes
                 .OrientShadow(Orientation.horizontal, false);
             fejlec.Draw(0, 0);
             //fejlec.Update(0, 0);
+            */
+
+            GroupBox gruppenSex = new GroupBox(Komponensek, "teszt", ConsoleColor.Cyan, ConsoleColor.DarkGray);
+            gruppenSex.Draw(20, 15);
 
 
 

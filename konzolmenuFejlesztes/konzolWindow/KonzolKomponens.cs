@@ -13,6 +13,8 @@ namespace konzolmenuFejlesztes.konzolWindow
         public abstract object Update(int x, int y);
         public abstract int Rx { get; set; }
         public abstract int Ry { get; set; }
+        public abstract int width { get; set; }
+        public abstract int height { get; set; }
 
     }
 }

@@ -9,7 +9,7 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
     class ProgressBar : KonzolKomponens
     {
         //int x, int y,
-        //int szelesseg, int hossz,
+        //int width, int height,
         //ConsoleColor ForeGround, ConsoleColor BackGround,
         //int miliSec)
 
@@ -17,8 +17,8 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
 
         public override int Rx { get; set; } = 0;
         public override int Ry { get; set; } = 0;
-        public int szelesseg { get; set; } = 10;
-        public int hossz { get; set; } = 2;
+        public override int width { get; set; } = 10;
+        public override int height { get; set; } = 2;
         public ConsoleColor ForeGround { get; set; } = ConsoleColor.Green;
         public ConsoleColor BackGround { get; set; } = ConsoleColor.White;
         public int miliSec { get; set; } = 20;
@@ -32,8 +32,8 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
         }
         public ProgressBar Size(int Width, int Height)
         {
-            this.szelesseg = Width;
-            this.hossz = Height;
+            this.width = Width;
+            this.height = Height;
             return this;
         }
         public ProgressBar Color(ConsoleColor ForeGround, ConsoleColor BackGround)
@@ -48,13 +48,13 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
             return this;
         }
 
-        public ProgressBar Construct(int rx, int ry, int szelesseg, int hossz, ConsoleColor foreGround, ConsoleColor backGround, int miliSec)
+        public ProgressBar Construct(int rx, int ry, int width, int height, ConsoleColor foreGround, ConsoleColor backGround, int miliSec)
         {
             Rx = rx;
             Ry = ry;
             //
-            this.szelesseg = szelesseg;
-            this.hossz = hossz;
+            this.width = width;
+            this.height = height;
             //
             ForeGround = foreGround;
             BackGround = backGround;
@@ -66,13 +66,13 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
         public override void Draw(int x, int y)
         {
             konzolmenu konzolmenu = new konzolmenu();
-            konzolmenu.Ablak(x+Rx, y+Ry, szelesseg, hossz, BackGround, false, 0);
+            konzolmenu.Ablak(x+Rx, y+Ry, width, height, BackGround, false, 0);
         }
 
         public override object Update(int x, int y)
         {
             konzolmenu konzolmenu = new konzolmenu();
-            konzolmenu.progressBar(x+Rx, y+Ry, szelesseg, hossz, ForeGround, BackGround, miliSec);
+            konzolmenu.progressBar(x+Rx, y+Ry, width, height, ForeGround, BackGround, miliSec);
             return null;
         }
 

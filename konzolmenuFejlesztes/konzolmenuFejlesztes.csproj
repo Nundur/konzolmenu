@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="konzolWindow\Komponensek\Grid.cs" />
+    <Compile Include="konzolWindow\Komponensek\GroupBox.cs" />
     <Compile Include="konzolWindow\Komponensek\MTextBlock.cs" />
     <Compile Include="konzolWindow\Komponensek\MTextBox.cs" />
     <Compile Include="konzolWindow\Komponensek\ProgressBar.cs" />

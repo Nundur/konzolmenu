@@ -9,15 +9,20 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
     class MTextBlock : KonzolKomponens
     {
 
-        public string[] szoveg { get; set; } = new string[0];
+        public string[] text { get; set; } = new string[0];
         public override int Rx { get; set; } = 0;
         public override int Ry { get; set; } = 0;
+
         public ConsoleColor ForeGround { get; set; } = ConsoleColor.Black;
         public ConsoleColor BackGround { get; set; } = ConsoleColor.Gray;
 
-        public MTextBlock Text(string[] szoveg)
+        //nincsenek hasznalva (MÉG)
+        public override int width { get; set; } = 10;
+        public override int height { get; set; } = 2;
+
+        public MTextBlock Text(string[] text)
         {
-            this.szoveg = szoveg;
+            this.text = text;
             return this;
         }
         public MTextBlock Position(int rx, int ry)
@@ -33,9 +38,9 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
             return this;
         }
         
-        public MTextBlock Construct(string[] szoveg, int rx, int ry, ConsoleColor foreGround, ConsoleColor backGround)
+        public MTextBlock Construct(string[] text, int rx, int ry, ConsoleColor foreGround, ConsoleColor backGround)
         {
-            this.szoveg = szoveg;
+            this.text = text;
             //
             Rx = rx;
             Ry = ry;
@@ -48,7 +53,7 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
         public override void Draw(int x, int y)
         {
             konzolmenu konzolmenu = new konzolmenu();
-            konzolmenu.MTextBlock(szoveg, x+Rx, y+Ry, ForeGround, BackGround);
+            konzolmenu.MTextBlock(text, x+Rx, y+Ry, ForeGround, BackGround);
         }
 
         public override object Update(int x, int y)
