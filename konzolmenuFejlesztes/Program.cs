@@ -16,6 +16,8 @@ namespace konzolmenuFejlesztes
             Console.SetBufferSize(200, 200);
             Console.SetWindowSize(150, 50);
             Console.Title = "konzol menu teszt";
+            Console.BackgroundColor = ConsoleColor.DarkBlue;
+            Console.Clear();
 
             List<KonzolKomponens> Komponensek = new List<KonzolKomponens>();
             string[] menupontok = {"DKK-101", "DKK-102", "DKK-103", "DKK-104", "DKK-105", "DKK-106" };
@@ -35,30 +37,15 @@ namespace konzolmenuFejlesztes
             
             
             
-            
-            //----------ez az új változtatás:---------------
             KonzolWindow konzolWindow = new KonzolWindow()
                 .Position(20, 15)
                 .Size(68, 23)
                 .Color(ConsoleColor.White, ConsoleColor.DarkGray)
-                .Shadow(true, ConsoleColor.DarkGray, ConsoleColor.Black)
+                .Shadow(true, ConsoleColor.Black, ConsoleColor.DarkBlue, ShadowType.block)
                 .Title("Teszt. MTextBoxbol kilepes TAB")
                 .Componens(Komponensek);
             konzolWindow.DrawDefault();
-
-
             konzolWindow.DrawKomponensek();
-
-
-            /* //(fejlec teszt)
-            konzolmenu.Ablak(0, 0, 150, 1, ConsoleColor.Gray, false, 0);
-            MenuLista fejlec = new MenuLista().Contain(menupontok)
-                .Position(0, 0).Size(10, 10)
-                .Color(ConsoleColor.Black, ConsoleColor.Gray, ConsoleColor.Gray, ConsoleColor.Green)
-                .OrientShadow(Orientation.horizontal, false);
-            fejlec.Draw(0, 0);
-            //fejlec.Update(0, 0);
-            */
 
             GroupBox gruppenSex = new GroupBox(Komponensek, "teszt", ConsoleColor.Cyan, ConsoleColor.DarkGray);
             gruppenSex.Draw(20, 15);

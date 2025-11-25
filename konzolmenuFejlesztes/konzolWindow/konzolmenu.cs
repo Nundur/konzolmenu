@@ -11,6 +11,7 @@ namespace konzolmenuFejlesztes
 {
     enum Orientation { horizontal, vertical }
     enum MenuType { Boring, Window, WindowWithShadow }
+    enum ShadowType { block, faded }
     class konzolmenu
     {
         /// <summary>
@@ -28,12 +29,17 @@ namespace konzolmenuFejlesztes
             {
                 for (int i = 0; i < hosszusag; i++)
                 {
+                    /*
                     Console.SetCursorPosition(x + 1, y + 1 + i);
                     for (int k = 0; k < szelesseg; k++)
                     {
                         Console.Write("▒");
-                    }
+                    }*/
+                    Line('█', hosszusag, x + szelesseg, y + 1, Orientation.vertical, ConsoleColor.Black, ConsoleColor.DarkGray);
+                    Line('█', szelesseg, x + 1, y + hosszusag, Orientation.horizontal, ConsoleColor.Black, ConsoleColor.DarkGray);
+                    //▀
                 }
+
             }
             //█
             Console.ForegroundColor = szinek;
@@ -52,25 +58,23 @@ namespace konzolmenuFejlesztes
         }
 
         //✅️
-        public void KomplexAblak(int x, int y, int szelesseg, int hosszusag, ConsoleColor hatterSzin, ConsoleColor betuSzin, bool arnyek, ConsoleColor arnyekSzin, ConsoleColor arnyekHatterSzin, string cim, char cimVonal, bool szegely)
+        public void KomplexAblak(int x, int y, int szelesseg, int hosszusag, ConsoleColor hatterSzin, ConsoleColor betuSzin, bool arnyek, ShadowType shadowtype, ConsoleColor arnyekSzin, ConsoleColor arnyekHatterSzin, string cim, char cimVonal, bool szegely)
         {
             //║╗╝═╔╚
             //▒
-
-
             Console.ForegroundColor = arnyekSzin;
             Console.BackgroundColor = arnyekHatterSzin;
             Console.SetCursorPosition(x + 1, y + 1);
             if (arnyek)
             {
-                for (int i = 0; i < hosszusag; i++)
+                if (shadowtype == ShadowType.faded)
                 {
-                    Console.SetCursorPosition(x + 1, y + 1 + i);
-                    for (int k = 0; k < szelesseg; k++)
-                    {
-                        Console.Write("▒");
-                    }
-
+                    Line('▒', hosszusag, x + szelesseg, y + 1, Orientation.vertical, arnyekSzin, arnyekHatterSzin);
+                    Line('▒', szelesseg, x + 1, y + hosszusag, Orientation.horizontal, arnyekSzin, arnyekHatterSzin);
+                } else if (shadowtype == ShadowType.block)
+                {
+                    Line('█', hosszusag, x + szelesseg, y+1, Orientation.vertical, arnyekSzin, arnyekHatterSzin);
+                    Line('▀', szelesseg, x + 1, y+hosszusag, Orientation.horizontal, arnyekSzin, arnyekHatterSzin);
                 }
             }
             //█
@@ -86,8 +90,6 @@ namespace konzolmenuFejlesztes
                     Console.Write("█");
                 }
             }
-
-
             //cim
             Console.ForegroundColor = betuSzin;
             int hovaCim = szelesseg / 2 - cim.Length / 2;
@@ -151,60 +153,7 @@ namespace konzolmenuFejlesztes
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.BackgroundColor = ConsoleColor.Black;
         }
-        /// <summary>
-        /// MenuPontok(tomb, x, y, terkoz)
-        /// </summary>
-        public int MenuPontok(string[] elemek, int x, int y, int terkoz)
-        {
-            int eredetix = x;
-            int eredetiy = y;
-            int kimenet = 1;
-            int kivalasztott = 1;
-            Console.ForegroundColor = ConsoleColor.Black;
-            Console.BackgroundColor = ConsoleColor.DarkGray;
-            bool igaze = true;
-            while (igaze)
-            {
-                Console.SetCursorPosition(x, y);
-                for (int i = 0; i < elemek.Length; i++)
-                {
-                    Console.SetCursorPosition(x, y + i);
-                    if (kivalasztott - 1 == i) Console.BackgroundColor = ConsoleColor.White;
-                    Console.Write(elemek[i]);
-
-                    y += terkoz;
-
-                    Console.BackgroundColor = ConsoleColor.DarkGray;
-                }
-                //billentyuvárás
-                switch (Console.ReadKey().Key)
-                {
-                    case ConsoleKey.DownArrow:
-                        if (kivalasztott + 1 <= elemek.Length)
-                        {
-                            kivalasztott++;
-                            kimenet++;
-                        }
-                        break;
-                    case ConsoleKey.UpArrow:
-                        if (kivalasztott - 1 > 0)
-                        {
-                            kivalasztott--;
-                            kimenet--;
-                        }
-                        break;
-                    case ConsoleKey.Enter:
-                        igaze = false;
-                        break;
-                }
-                x = eredetix;
-                y = eredetiy;
-            }
-
-
-            return kimenet;
-        }
-
+        
         /// <summary>
         /// MenuPontok(tomb, x, y, terkoz, milyen szinu, kivalasztottSZin, foregroundcolor)
         /// </summary>
@@ -356,7 +305,7 @@ namespace konzolmenuFejlesztes
                     Console.SetCursorPosition(x + szelesseg - 1, y+hosszusag-1);
                     Console.Write('O');
                     Console.SetCursorPosition(x + szelesseg - 1, y+1+(int)((double)(kivalasztott - 1) / (elemek.Length - 1) * (hosszusag-3)));
-                    Console.Write('█');
+                    Console.Write('▓');
                 }
                 Console.SetCursorPosition(x + szelesseg - 1, y);//hogy a listán kívül ne irjon semmit
                 //billentyuvárás
@@ -403,30 +352,6 @@ namespace konzolmenuFejlesztes
             }
             return kivalasztott;
         }
-        public void FancyKepernyotorles(int x, int y)
-        {// ez tulajdonképpen még a régi józsika kalandjaiban használt metódusom, amugy kb semmire nem hasznáom már
-            // de azé menő, nem:D?
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.SetCursorPosition(0, 0 + 1);
-            for (int i = 0; i < y; i++)
-            {
-                Console.ForegroundColor = ConsoleColor.Black;
-                for (int l = 0; l < x; l++) Console.Write("█");
-                Thread.Sleep(30);
-                if (i <= 0 || i < y)
-                {
-                    Console.SetCursorPosition(0, i);
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    for (int b = 0; b < x; b++) Console.Write("█");
-                }
-                Thread.Sleep(30);
-                Console.SetCursorPosition(0, 0 + i);
-            }
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.Clear();
-        }
-
-
         //✅️
         public string TextBox(int x, int y, int hossz, ConsoleColor ForeGround, ConsoleColor BackGround, bool passProtected)
         {
@@ -475,7 +400,7 @@ namespace konzolmenuFejlesztes
                 }
             } while (true);
         }
-
+        //✅️
         public char[,] MTextBox(int x, int y, int szelesseg, int hosszusag, ConsoleColor ForeGround, ConsoleColor BackGround, ConsoleKey kilepes)
         {
             List<char> szoveg = new List<char>();
@@ -605,8 +530,6 @@ namespace konzolmenuFejlesztes
                 }
             } while (true);
         }
-
-
         //✅️
         public void progressBar(int x, int y, int szelesseg, int hossz, ConsoleColor ForeGround, ConsoleColor BackGround, int miliSec)
         {
@@ -667,6 +590,91 @@ namespace konzolmenuFejlesztes
             }
         }
 
+
+
+
+
+
+
+        //-----------------ezek ilyen easter eggekxd -------------------------
+        //                                                                  //
+        //--------------------------------------------------------------------
+        public void FancyKepernyotorles(int x, int y)
+        {// ez tulajdonképpen még a régi józsika kalandjaiban használt metódusom, amugy kb semmire nem hasznáom már
+            // de azé menő, nem:D?
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.SetCursorPosition(0, 0 + 1);
+            for (int i = 0; i < y; i++)
+            {
+                Console.ForegroundColor = ConsoleColor.Black;
+                for (int l = 0; l < x; l++) Console.Write("█");
+                Thread.Sleep(30);
+                if (i <= 0 || i < y)
+                {
+                    Console.SetCursorPosition(0, i);
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    for (int b = 0; b < x; b++) Console.Write("█");
+                }
+                Thread.Sleep(30);
+                Console.SetCursorPosition(0, 0 + i);
+            }
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Clear();
+        }
+
+        /// <summary>
+        /// MenuPontok(tomb, x, y, terkoz)
+        /// </summary>
+        public int MenuPontok(string[] elemek, int x, int y, int terkoz)
+        {
+            int eredetix = x;
+            int eredetiy = y;
+            int kimenet = 1;
+            int kivalasztott = 1;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.BackgroundColor = ConsoleColor.DarkGray;
+            bool igaze = true;
+            while (igaze)
+            {
+                Console.SetCursorPosition(x, y);
+                for (int i = 0; i < elemek.Length; i++)
+                {
+                    Console.SetCursorPosition(x, y + i);
+                    if (kivalasztott - 1 == i) Console.BackgroundColor = ConsoleColor.White;
+                    Console.Write(elemek[i]);
+
+                    y += terkoz;
+
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                }
+                //billentyuvárás
+                switch (Console.ReadKey().Key)
+                {
+                    case ConsoleKey.DownArrow:
+                        if (kivalasztott + 1 <= elemek.Length)
+                        {
+                            kivalasztott++;
+                            kimenet++;
+                        }
+                        break;
+                    case ConsoleKey.UpArrow:
+                        if (kivalasztott - 1 > 0)
+                        {
+                            kivalasztott--;
+                            kimenet--;
+                        }
+                        break;
+                    case ConsoleKey.Enter:
+                        igaze = false;
+                        break;
+                }
+                x = eredetix;
+                y = eredetiy;
+            }
+
+
+            return kimenet;
+        }
 
         //szia jovonandi
 

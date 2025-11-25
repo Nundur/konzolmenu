@@ -25,6 +25,12 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
         public Orientation orientation { get; set; } = Orientation.vertical;
         public bool shadowbool { get; set; } = true;
 
+
+        public ConsoleColor shadowForeGround { get; set; } = ConsoleColor.Black;
+
+        public ConsoleColor shadowBackGround { get; set; } = ConsoleColor.Gray;
+        public ShadowType shadowtype { get; set; } = ShadowType.block;
+
         public bool showScrol { get; set; } = false;
         public MenuLista Contain(string[] elemek)
         {
@@ -57,11 +63,14 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
             this.showScrol = showScroll;
             return this;
         }
-        public MenuLista OrientShadow(Orientation orientation, bool shadow)
+        public MenuLista OrientShadow(Orientation orientation, bool shadow /*,ConsoleColor ForeGround, ConsoleColor BackGround, ShadowType shadowtype*/)
         {
             //bool shadow, ConsoleColor ForeGround, ConsoleColor BackGround
             this.orientation = orientation;
             this.shadowbool = shadow;
+            this.shadowBackGround = BackGround;
+            this.shadowForeGround = ForeGround;
+            this.shadowtype = shadowtype;
             return this;
         }
         
@@ -72,6 +81,7 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
             {
                 int tempSzelesseg = (elemek.OrderByDescending(s => s.Length).First().Length) * elemek.Length;
                 konzolmenu.Ablak(x + Rx, y + Ry, tempSzelesseg, 1, BackGround, shadowbool, 0);
+                //konzolmenu.KomplexAblak(x + Rx, y + Ry, tempSzelesseg, 1, BackGround, ForeGround, shadowbool, shadowtype, shadowBackGround, shadowForeGround, "", ' ', false);
                 //konzolmenu.MTextBlock(elemek, x + Rx, y + Ry, ForeGround, BackGround);
                 for (int i = 0; i < elemek.Length; i++)
                 {
@@ -80,6 +90,8 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
             } else
             {
                 konzolmenu.Ablak(x + Rx, y + Ry, width, height, BackGround, shadowbool, 0);
+                //konzolmenu.KomplexAblak(x + Rx, y + Ry, width, height, BackGround, ForeGround, shadowbool, shadowtype, shadowBackGround, shadowForeGround, "", ' ', false);
+                
                 if (elemek.Length > height)
                 {
                     string[] sortedElemek = new string[height];
