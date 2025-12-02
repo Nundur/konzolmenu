@@ -85,7 +85,8 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
                 //konzolmenu.MTextBlock(elemek, x + Rx, y + Ry, ForeGround, BackGround);
                 for (int i = 0; i < elemek.Length; i++)
                 {
-                    konzolmenu.TextBlock(elemek[i], x+Rx + (i * tempSzelesseg/elemek.Length), y+Ry, ForeGround, BackGround);
+                    //(i * tempSzelesseg / elemek.Length)
+                    konzolmenu.TextBlock(elemek[i], x + Rx + width * i, y + Ry, ForeGround, BackGround);
                 }
             } else
             {

@@ -12,6 +12,8 @@ namespace konzolmenuFejlesztes
     enum Orientation { horizontal, vertical }
     enum MenuType { Boring, Window, WindowWithShadow }
     enum ShadowType { block, faded }
+
+    enum TitleType { inBorder, inWindow }
     class konzolmenu
     {
         /// <summary>
@@ -58,7 +60,7 @@ namespace konzolmenuFejlesztes
         }
 
         //✅️
-        public void KomplexAblak(int x, int y, int szelesseg, int hosszusag, ConsoleColor hatterSzin, ConsoleColor betuSzin, bool arnyek, ShadowType shadowtype, ConsoleColor arnyekSzin, ConsoleColor arnyekHatterSzin, string cim, char cimVonal, bool szegely)
+        public void KomplexAblak(int x, int y, int szelesseg, int hosszusag, ConsoleColor hatterSzin, ConsoleColor betuSzin, bool arnyek, ShadowType shadowtype, ConsoleColor arnyekSzin, ConsoleColor arnyekHatterSzin, string cim, char cimVonal, bool szegely, TitleType TitleTypee)
         {
             //║╗╝═╔╚
             //▒
@@ -92,9 +94,8 @@ namespace konzolmenuFejlesztes
             }
             //cim
             Console.ForegroundColor = betuSzin;
-            int hovaCim = szelesseg / 2 - cim.Length / 2;
-            Console.SetCursorPosition(x + hovaCim, y + 1);
-            Console.Write(cim);
+            
+
             //cimVonal
             Console.SetCursorPosition(x, y + 2);
             for (int i = 0; i < szelesseg; i++)
@@ -149,6 +150,21 @@ namespace konzolmenuFejlesztes
                     Console.Write("║");
                 }
 
+            }
+            if (TitleTypee == TitleType.inWindow)
+            {
+                Console.ForegroundColor = betuSzin;
+                int hovaCim = szelesseg / 2 - cim.Length / 2;
+                Console.SetCursorPosition(x + hovaCim, y + 1);
+                Console.Write(cim);
+            }
+            else
+            {
+                Console.ForegroundColor = hatterSzin;
+                Console.BackgroundColor = betuSzin;
+                int hovaCim = szelesseg / 2 - cim.Length / 2;
+                Console.SetCursorPosition(x + hovaCim, y);
+                Console.Write(cim);
             }
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.BackgroundColor = ConsoleColor.Black;
@@ -401,7 +417,7 @@ namespace konzolmenuFejlesztes
             } while (true);
         }
         //✅️
-        public char[,] MTextBox(int x, int y, int szelesseg, int hosszusag, ConsoleColor ForeGround, ConsoleColor BackGround, ConsoleKey kilepes)
+        public char[,] MTextBox(int x, int y, int szelesseg, int hosszusag, ConsoleColor ForeGround, ConsoleColor BackGround, ConsoleKey kilepes, bool textOverWrite, bool scroll)
         {
             List<char> szoveg = new List<char>();
             char[,] returner = new char[hosszusag, szelesseg];

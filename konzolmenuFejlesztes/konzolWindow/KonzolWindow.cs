@@ -28,6 +28,7 @@ namespace konzolmenuFejlesztes.konzolWindow
         public char cimVonal { get; set; } = '═';
         public bool szegely { get; set; } = true;
 
+        public TitleType TitleTypee { get; set; }
         public List<KonzolKomponens> Komponensek { get; set; }
 
         //proba:
@@ -57,9 +58,10 @@ namespace konzolmenuFejlesztes.konzolWindow
             this.arnyekHatterSzin = BackGround;
             return this;
         }
-        public KonzolWindow Title(string title, char titleLine = '═', bool border = true)
+        public KonzolWindow Title(string title, TitleType titleTypee = TitleType.inWindow, char titleLine = '═', bool border = true)
         {
             this.cim = title;
+            this.TitleTypee = titleTypee;
             this.cimVonal = titleLine;
             this.szegely = border;
             return this;
@@ -71,7 +73,7 @@ namespace konzolmenuFejlesztes.konzolWindow
         }
 
         // ha valaki hülyegyerek és egybe akar egy konstruktort
-        public KonzolWindow Construct(int x, int y, int szelesseg, int hosszusag, ConsoleColor hatterSzin, ConsoleColor betuSzin, bool arnyek, ShadowType shadowtype, ConsoleColor arnyekSzin, ConsoleColor arnyekHatterSzin, string cim, char cimVonal, bool szegely, List<KonzolKomponens> komponensek)
+        public KonzolWindow Construct(int x, int y, int szelesseg, int hosszusag, ConsoleColor hatterSzin, ConsoleColor betuSzin, bool arnyek, ShadowType shadowtype, ConsoleColor arnyekSzin, ConsoleColor arnyekHatterSzin, string cim, char cimVonal, bool szegely, List<KonzolKomponens> komponensek, TitleType TitleTypee)
         {
             this.shadowtype = shadowtype;
             this.x = x;
@@ -87,13 +89,14 @@ namespace konzolmenuFejlesztes.konzolWindow
             this.cimVonal = cimVonal;
             this.szegely = szegely;
             Komponensek = komponensek;
+            this.TitleTypee = TitleTypee;
             return this;
         }
 
         public void DrawDefault()
         {
             konzolmenu konzolmenu = new konzolmenu();
-            konzolmenu.KomplexAblak(x, y, szelesseg, hosszusag, hatterSzin, betuSzin, arnyek, shadowtype,  arnyekSzin, arnyekHatterSzin, cim, cimVonal, szegely);
+            konzolmenu.KomplexAblak(x, y, szelesseg, hosszusag, hatterSzin, betuSzin, arnyek, shadowtype, arnyekSzin, arnyekHatterSzin, cim, cimVonal, szegely, TitleTypee);
         }
 
         public void DrawKomponensek()
