@@ -11,12 +11,14 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
         //int x, int y, int Width, ConsoleColor ForeGround, ConsoleColor BackGround, bool passProtected
 
 
+        public override string name { get; set; } = "TextBox";
+        public override string header { get; set; }
         public override int Rx { get; set; } = 0;
         public override int Ry { get; set; } = 0;
         public override int width { get; set; } = 10;
         public override int height { get; set; } = 1;
-        public ConsoleColor ForeGround { get; set; } = ConsoleColor.Black;
-        public ConsoleColor BackGround { get; set; } = ConsoleColor.White;
+        public override ConsoleColor ForeGround { get; set; } = ConsoleColor.Black;
+        public override ConsoleColor BackGround { get; set; } = ConsoleColor.White;
         public bool passProtected { get; set; } = false;
 
 
@@ -56,7 +58,7 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
             return this;
         }
 
-        public override void Draw(int x, int y) 
+        public override void Draw(int x, int y)
         {
             konzolmenu konzolmenu = new konzolmenu();
             konzolmenu.Line(' ', width, x+Rx, y+Ry, Orientation.horizontal, ForeGround, BackGround);
@@ -65,7 +67,7 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
         {
             konzolmenu konzolmenu = new konzolmenu();
 
-            
+
             return konzolmenu.TextBox(x + Rx, y + Ry, width, ForeGround, BackGround, passProtected); ;
         }
 

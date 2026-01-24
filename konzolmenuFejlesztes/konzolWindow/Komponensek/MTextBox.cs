@@ -13,15 +13,17 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
         //ConsoleKey kilepes
 
 
+        public override string name { get; set; } = "MTextBox";
+        public override string header { get; set; }
         public override int Rx { get; set; } = 0;
         public override int Ry { get; set; } = 0;
         public override int width { get; set; } = 10;
         public override int height { get; set; } = 10;
-        public ConsoleColor ForeGround { get; set; } = ConsoleColor.Black;
-        public ConsoleColor BackGround { get; set; } = ConsoleColor.White;
+        public override ConsoleColor ForeGround { get; set; } = ConsoleColor.Black;
+        public override ConsoleColor BackGround { get; set; } = ConsoleColor.White;
         public ConsoleKey kilepes { get; set; } = ConsoleKey.Tab;
 
-        
+
         public MTextBox Position(int rx, int ry)
         {
             Rx = rx;
@@ -61,13 +63,13 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
         public override void Draw(int x, int y)
         {
             konzolmenu konzolmenu = new konzolmenu();
-            konzolmenu.Ablak(Rx+x, Ry+y, width, height, BackGround, false, 0);
+            konzolmenu.Ablak(x+Rx, y+Ry, width, height, BackGround, false, 0);
         }
 
         public override object Update(int x, int y)
         {
             konzolmenu konzolmenu = new konzolmenu();
-            return konzolmenu.MTextBox(x+Rx, y+Ry, width, height, ForeGround, BackGround, kilepes);
+            return konzolmenu.MTextBox(x + Rx, y + Ry, width, height, ForeGround, BackGround, kilepes, false, true);
         }
     }
 }

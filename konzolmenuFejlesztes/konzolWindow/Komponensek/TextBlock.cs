@@ -9,11 +9,13 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
     class TextBlock : KonzolKomponens
     {
         //string text, int x, int y, ConsoleColor ForeGround, ConsoleColor BackGround
-        public string text { get; set; } = "betmen";
+
+        public override string name { get; set; } = "TextBlock";
+        public override string header { get; set; } = "betmen";
         public override int Rx { get; set; } = 0;
         public override int Ry { get; set; } = 0;
-        public ConsoleColor ForeGround { get; set; } = ConsoleColor.Black;
-        public ConsoleColor BackGround { get; set; } = ConsoleColor.White;
+        public override ConsoleColor ForeGround { get; set; } = ConsoleColor.Black;
+        public override ConsoleColor BackGround { get; set; } = ConsoleColor.White;
 
 
         public override int width { get; set; } = 10;
@@ -21,7 +23,7 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
 
         public TextBlock Text(string text)
         {
-            this.text = text;
+            this.header = header;
             return this;
         }
         public TextBlock Position(int rx, int ry)
@@ -40,7 +42,7 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
 
         public TextBlock Construct(string text, int rx, int ry, ConsoleColor foreGround, ConsoleColor backGround)
         {
-            this.text = text;
+            this.header = text;
             //
             Rx = rx;
             Ry = ry;
@@ -53,7 +55,7 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
         public override void Draw(int x, int y)
         {
             konzolmenu konzolmenu = new konzolmenu();
-            konzolmenu.TextBlock(text, x+Rx, y+Ry, ForeGround, BackGround);
+            konzolmenu.TextBlock(header, x + Rx, y + Ry, ForeGround, BackGround);
         }
         public override object Update(int x, int y)
         {

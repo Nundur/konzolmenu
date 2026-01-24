@@ -14,13 +14,14 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
         //int miliSec)
 
 
-
+        public override string name { get; set; } = "ProgressBar";
+        public override string header { get; set; }
         public override int Rx { get; set; } = 0;
         public override int Ry { get; set; } = 0;
         public override int width { get; set; } = 10;
         public override int height { get; set; } = 2;
-        public ConsoleColor ForeGround { get; set; } = ConsoleColor.Green;
-        public ConsoleColor BackGround { get; set; } = ConsoleColor.White;
+        public override ConsoleColor ForeGround { get; set; } = ConsoleColor.Green;
+        public override ConsoleColor BackGround { get; set; } = ConsoleColor.White;
         public int miliSec { get; set; } = 20;
 
 
@@ -72,7 +73,7 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
         public override object Update(int x, int y)
         {
             konzolmenu konzolmenu = new konzolmenu();
-            konzolmenu.progressBar(x+Rx, y+Ry, width, height, ForeGround, BackGround, miliSec);
+            konzolmenu.progressBar(x + Rx, y + Ry, width, height, ForeGround, BackGround, miliSec);
             return null;
         }
 

@@ -31,14 +31,14 @@ namespace konzolmenuFejlesztes
             {
                 for (int i = 0; i < hosszusag; i++)
                 {
-                    /*
+
                     Console.SetCursorPosition(x + 1, y + 1 + i);
                     for (int k = 0; k < szelesseg; k++)
                     {
                         Console.Write("▒");
-                    }*/
-                    Line('█', hosszusag, x + szelesseg, y + 1, Orientation.vertical, ConsoleColor.Black, ConsoleColor.DarkGray);
-                    Line('█', szelesseg, x + 1, y + hosszusag, Orientation.horizontal, ConsoleColor.Black, ConsoleColor.DarkGray);
+                    }
+                    //Line('█', hosszusag, x + szelesseg, y + 1, Orientation.vertical, ConsoleColor.Black, ConsoleColor.DarkGray);
+                    //Line('█', szelesseg, x + 1, y + hosszusag, Orientation.horizontal, ConsoleColor.Black, ConsoleColor.DarkGray);
                     //▀
                 }
 
@@ -73,10 +73,11 @@ namespace konzolmenuFejlesztes
                 {
                     Line('▒', hosszusag, x + szelesseg, y + 1, Orientation.vertical, arnyekSzin, arnyekHatterSzin);
                     Line('▒', szelesseg, x + 1, y + hosszusag, Orientation.horizontal, arnyekSzin, arnyekHatterSzin);
-                } else if (shadowtype == ShadowType.block)
+                }
+                else if (shadowtype == ShadowType.block)
                 {
-                    Line('█', hosszusag, x + szelesseg, y+1, Orientation.vertical, arnyekSzin, arnyekHatterSzin);
-                    Line('▀', szelesseg, x + 1, y+hosszusag, Orientation.horizontal, arnyekSzin, arnyekHatterSzin);
+                    Line('█', hosszusag, x + szelesseg, y + 1, Orientation.vertical, arnyekSzin, arnyekHatterSzin);
+                    Line('▀', szelesseg, x + 1, y + hosszusag, Orientation.horizontal, arnyekSzin, arnyekHatterSzin);
                 }
             }
             //█
@@ -94,7 +95,7 @@ namespace konzolmenuFejlesztes
             }
             //cim
             Console.ForegroundColor = betuSzin;
-            
+
 
             //cimVonal
             Console.SetCursorPosition(x, y + 2);
@@ -154,14 +155,15 @@ namespace konzolmenuFejlesztes
             if (TitleTypee == TitleType.inWindow)
             {
                 Console.ForegroundColor = betuSzin;
+                Console.BackgroundColor = hatterSzin;
                 int hovaCim = szelesseg / 2 - cim.Length / 2;
                 Console.SetCursorPosition(x + hovaCim, y + 1);
                 Console.Write(cim);
             }
             else
             {
-                Console.ForegroundColor = hatterSzin;
-                Console.BackgroundColor = betuSzin;
+                Console.ForegroundColor = betuSzin;
+                Console.BackgroundColor = hatterSzin;
                 int hovaCim = szelesseg / 2 - cim.Length / 2;
                 Console.SetCursorPosition(x + hovaCim, y);
                 Console.Write(cim);
@@ -169,7 +171,7 @@ namespace konzolmenuFejlesztes
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.BackgroundColor = ConsoleColor.Black;
         }
-        
+
         /// <summary>
         /// MenuPontok(tomb, x, y, terkoz, milyen szinu, kivalasztottSZin, foregroundcolor)
         /// </summary>
@@ -304,7 +306,8 @@ namespace konzolmenuFejlesztes
                             if (i == hosszusag - 1) Console.BackgroundColor = SelectedMenu;
                             Console.Write(elemek[i + kivalasztott - hosszusag]);
                             for (int k = 0; k < szelesseg - (elemek[i + kivalasztott - hosszusag]).Length; k++) Console.Write(" ");
-                        }else
+                        }
+                        else
                         {
                             if (kivalasztott - 1 == i) Console.BackgroundColor = SelectedMenu;
                             Console.Write(elemek[i]);
@@ -315,12 +318,18 @@ namespace konzolmenuFejlesztes
                 }
                 if (showScroll)//scroll
                 {
-                    Line('║', hosszusag, x + szelesseg-1, y, Orientation.vertical, ForeGround, BackGround);
-                    Console.SetCursorPosition(x+szelesseg-1, y);
+                    Line('║', hosszusag, x + szelesseg - 1, y, Orientation.vertical, ForeGround, BackGround);
+                    Console.SetCursorPosition(x + szelesseg - 1, y);
                     Console.Write('O');
-                    Console.SetCursorPosition(x + szelesseg - 1, y+hosszusag-1);
+                    Console.SetCursorPosition(x + szelesseg - 1, y + hosszusag - 1);
                     Console.Write('O');
-                    Console.SetCursorPosition(x + szelesseg - 1, y+1+(int)((double)(kivalasztott - 1) / (elemek.Length - 1) * (hosszusag-3)));
+                    try
+                    {
+                        Console.SetCursorPosition(x + szelesseg - 1, y + 1 + (int)((double)(kivalasztott - 1) / (elemek.Length - 1) * (hosszusag - 3)));
+                    }
+                    catch (Exception)
+                    {
+                    }
                     Console.Write('▓');
                 }
                 Console.SetCursorPosition(x + szelesseg - 1, y);//hogy a listán kívül ne irjon semmit
@@ -429,25 +438,26 @@ namespace konzolmenuFejlesztes
             int holx = 0;
             int holy = 0;
             //for (int i = 0; i < hossz; i++) Console.Write(" ");
-            Console.SetCursorPosition(x+holx, y+holy);
+            Console.SetCursorPosition(x + holx, y + holy);
             do
             {
-                Console.SetCursorPosition(x+holx, y+holy);
+                Console.SetCursorPosition(x + holx, y + holy);
                 keyInfo = Console.ReadKey(true);
                 if (keyInfo.Key == ConsoleKey.Backspace)
                 {
-                    if (!(holx ==0 && holy ==0))
+                    if (!(holx == 0 && holy == 0))
                     {
-                        if (holx>0)
+                        if (holx > 0)
                         {
                             holx--;
                             Console.SetCursorPosition(x + holx, y + holy);
                             Console.Write(' ');
                             returner[holy, holx] = '\0';
                             Console.SetCursorPosition(x + holx, y + holy);
-                        } else
+                        }
+                        else
                         {
-                            holx = szelesseg-1;
+                            holx = szelesseg - 1;
                             holy--;
                             Console.SetCursorPosition(x + holx, y + holy);
                             Console.Write(' ');
@@ -483,7 +493,7 @@ namespace konzolmenuFejlesztes
                             }
                             continue;
                         case ConsoleKey.DownArrow:
-                            if (holy < hosszusag-1)
+                            if (holy < hosszusag - 1)
                             {
                                 //holx = 0;
                                 holy++;
@@ -493,7 +503,7 @@ namespace konzolmenuFejlesztes
                             continue;
 
                         case ConsoleKey.RightArrow:
-                            if (holx < szelesseg-1)
+                            if (holx < szelesseg - 1)
                             {
                                 //holx = 0;
                                 holx++;
@@ -518,17 +528,17 @@ namespace konzolmenuFejlesztes
 
                     if (keyInfo.Key != kilepes)
                     {
-                        if (holx<= szelesseg-1)
+                        if (holx <= szelesseg - 1)
                         {
                             //holx = 0;
-                            Console.SetCursorPosition(x+holx, y+holy);
+                            Console.SetCursorPosition(x + holx, y + holy);
                             Console.Write(keyInfo.KeyChar);
                             returner[holy, holx] = keyInfo.KeyChar;
                             holx++;
                         }
                         else
                         {
-                            if (holy<=hosszusag-2)
+                            if (holy <= hosszusag - 2)
                             {
                                 holx = 0;
                                 holy++;
@@ -555,7 +565,7 @@ namespace konzolmenuFejlesztes
             Ablak(x, y, szelesseg, hossz, BackGround, false, 0);
             for (int i = 0; i < 100; i++)
             {
-                Ablak(x+ (szelesseg * i) / 100, y, 1, hossz, ForeGround, false, 0);
+                Ablak(x + (szelesseg * i) / 100, y, 1, hossz, ForeGround, false, 0);
                 Thread.Sleep(miliSec);
             }
         }

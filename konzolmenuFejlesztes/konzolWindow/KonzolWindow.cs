@@ -6,30 +6,36 @@ using System.Threading.Tasks;
 
 namespace konzolmenuFejlesztes.konzolWindow
 {
-    class KonzolWindow
+    class KonzolWindow : KonzolKomponens
     {
-        //int x, int y, int szelesseg, int hosszusag, ConsoleColor hatterSzin,
-        //ConsoleColor betuSzin, bool arnyek,
-        //ConsoleColor arnyekSzin, ConsoleColor arnyekHatterSzin,
+
+        public override string name { get; set; } = "KonzolWindow";
+        //int x, int y, int width, int height, ConsoleColor BackGround,
+        //ConsoleColor ForeGround, bool arnyek,
+        //ConsoleColor arnyekSzin, ConsoleColor arnyekBackGround,
         //string cim, char cimVonal, bool szegely
 
 
         public int x { get; set; } = 1;
         public int y { get; set; } = 1;
-        public int szelesseg { get; set; } = 20;
-        public int hosszusag { get; set; } = 20;
-        public ConsoleColor hatterSzin { get; set; } = ConsoleColor.Green;
-        public ConsoleColor betuSzin { get; set; } = ConsoleColor.White;
+
+        public override int Rx { get; set; } = 1;
+        public override int Ry { get; set; } = 1;
+
+        public override int width { get; set; } = 20;
+        public override int height { get; set; } = 20;
+        public override ConsoleColor BackGround { get; set; } = ConsoleColor.Green;
+        public override ConsoleColor ForeGround { get; set; } = ConsoleColor.White;
         public bool arnyek { get; set; } = true;
         public ShadowType shadowtype { get; set; } = ShadowType.faded;
         public ConsoleColor arnyekSzin { get; set; } = ConsoleColor.DarkGray;
-        public ConsoleColor arnyekHatterSzin { get; set; } = ConsoleColor.Black;
-        public string cim { get; set; } = "title";
+        public ConsoleColor arnyekBackGround { get; set; } = ConsoleColor.Black;
+        public override string header { get; set; } = "title";
         public char cimVonal { get; set; } = '═';
         public bool szegely { get; set; } = true;
 
         public TitleType TitleTypee { get; set; }
-        public List<KonzolKomponens> Komponensek { get; set; }
+        public List<KonzolKomponens> Komponensek { get; set; } = new List<KonzolKomponens>();
 
         //proba:
         public KonzolWindow Position(int x, int y)
@@ -40,14 +46,14 @@ namespace konzolmenuFejlesztes.konzolWindow
         }
         public KonzolWindow Size(int Width, int Height)
         {
-            this.szelesseg = Width;
-            this.hosszusag = Height;
+            this.width = Width;
+            this.height = Height;
             return this;
         }
         public KonzolWindow Color(ConsoleColor ForeGround, ConsoleColor BackGround)
         {
-            this.betuSzin = ForeGround;
-            this.hatterSzin = BackGround;
+            this.ForeGround = ForeGround;
+            this.BackGround = BackGround;
             return this;
         }
         public KonzolWindow Shadow(bool shadow, ConsoleColor ForeGround, ConsoleColor BackGround, ShadowType shadowtype)
@@ -55,12 +61,12 @@ namespace konzolmenuFejlesztes.konzolWindow
             this.shadowtype = shadowtype;
             this.arnyek = shadow;
             this.arnyekSzin = ForeGround;
-            this.arnyekHatterSzin = BackGround;
+            this.arnyekBackGround = BackGround;
             return this;
         }
         public KonzolWindow Title(string title, TitleType titleTypee = TitleType.inWindow, char titleLine = '═', bool border = true)
         {
-            this.cim = title;
+            this.header = title;
             this.TitleTypee = titleTypee;
             this.cimVonal = titleLine;
             this.szegely = border;
@@ -73,30 +79,36 @@ namespace konzolmenuFejlesztes.konzolWindow
         }
 
         // ha valaki hülyegyerek és egybe akar egy konstruktort
-        public KonzolWindow Construct(int x, int y, int szelesseg, int hosszusag, ConsoleColor hatterSzin, ConsoleColor betuSzin, bool arnyek, ShadowType shadowtype, ConsoleColor arnyekSzin, ConsoleColor arnyekHatterSzin, string cim, char cimVonal, bool szegely, List<KonzolKomponens> komponensek, TitleType TitleTypee)
+        public KonzolWindow Construct(int x, int y, int width, int height, ConsoleColor BackGround, ConsoleColor ForeGround, bool arnyek, ShadowType shadowtype, ConsoleColor arnyekSzin, ConsoleColor arnyekBackGround, string cim, char cimVonal, bool szegely, TitleType titleType, List<KonzolKomponens> komponensek)
         {
             this.shadowtype = shadowtype;
-            this.x = x;
-            this.y = y;
-            this.szelesseg = szelesseg;
-            this.hosszusag = hosszusag;
-            this.hatterSzin = hatterSzin;
-            this.betuSzin = betuSzin;
+            this.Rx = x;
+            this.Ry = y;
+            this.width = width;
+            this.height = height;
+            this.BackGround = BackGround;
+            this.ForeGround = ForeGround;
             this.arnyek = arnyek;
             this.arnyekSzin = arnyekSzin;
-            this.arnyekHatterSzin = arnyekHatterSzin;
-            this.cim = cim;
+            this.arnyekBackGround = arnyekBackGround;
+            this.header = cim;
             this.cimVonal = cimVonal;
             this.szegely = szegely;
             Komponensek = komponensek;
-            this.TitleTypee = TitleTypee;
+            this.TitleTypee = titleType;
             return this;
         }
 
-        public void DrawDefault()
+        public override void Draw(int x, int y)
         {
             konzolmenu konzolmenu = new konzolmenu();
-            konzolmenu.KomplexAblak(x, y, szelesseg, hosszusag, hatterSzin, betuSzin, arnyek, shadowtype, arnyekSzin, arnyekHatterSzin, cim, cimVonal, szegely, TitleTypee);
+            konzolmenu.KomplexAblak(x, y, width, height, BackGround, ForeGround, arnyek, shadowtype, arnyekSzin, arnyekBackGround, header, cimVonal, szegely, TitleTypee);
+        }
+        public override object Update(int x, int y)
+        {
+            konzolmenu konzolmenu = new konzolmenu();
+            konzolmenu.KomplexAblak(x + Rx, y + Ry, width, height, BackGround, ForeGround, arnyek, shadowtype, arnyekSzin, arnyekBackGround, header, cimVonal, szegely, TitleTypee);
+            return "";
         }
 
         public void DrawKomponensek()

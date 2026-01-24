@@ -10,6 +10,7 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
     {
 
 
+        public override string name { get; set; } = "MenuLista";
         //string[] elemek, int x, int y, int width, int height,
         //ConsoleColor ForeGround, ConsoleColor BackGround, ConsoleColor Menu, ConsoleColor SelectedMenu,
         //Orientation orientation = Orientation.vertical, bool shadowbool = false
@@ -18,8 +19,9 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
         public override int Ry { get; set; } = 0;
         public override int width { get; set; } = 10;
         public override int height { get; set; } = 10;
-        public ConsoleColor ForeGround { get; set; } = ConsoleColor.Black;
-        public ConsoleColor BackGround { get; set; } = ConsoleColor.Gray;
+        public override string header { get; set; }
+        public override ConsoleColor ForeGround { get; set; } = ConsoleColor.Black;
+        public override ConsoleColor BackGround { get; set; } = ConsoleColor.Gray;
         public ConsoleColor menu { get; set; } = ConsoleColor.Gray;
         public ConsoleColor SelectedMenu { get; set; } = ConsoleColor.Green;
         public Orientation orientation { get; set; } = Orientation.vertical;
@@ -73,26 +75,48 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
             this.shadowtype = shadowtype;
             return this;
         }
-        
+
+        public MenuLista Construct(string[] elemek, int rx, int ry, int width, int height, ConsoleColor foreGround, ConsoleColor backGround, ConsoleColor menu, ConsoleColor selectedMenu, Orientation orientation, bool shadowbool, ConsoleColor shadowForeGround, ConsoleColor shadowBackGround, ShadowType shadowtype, bool showScrol)
+        {
+            this.elemek = elemek;
+            Rx = rx;
+            Ry = ry;
+            this.width = width;
+            this.height = height;
+            ForeGround = foreGround;
+            BackGround = backGround;
+            this.menu = menu;
+            SelectedMenu = selectedMenu;
+            this.orientation = orientation;
+            this.shadowbool = shadowbool;
+            this.shadowForeGround = shadowForeGround;
+            this.shadowBackGround = shadowBackGround;
+            this.shadowtype = shadowtype;
+            this.showScrol = showScrol;
+            return this;
+        }
+
         public override void Draw(int x, int y)
         {
             konzolmenu konzolmenu = new konzolmenu();
             if (orientation == Orientation.horizontal)
             {
                 int tempSzelesseg = (elemek.OrderByDescending(s => s.Length).First().Length) * elemek.Length;
-                konzolmenu.Ablak(x + Rx, y + Ry, tempSzelesseg, 1, BackGround, shadowbool, 0);
+                konzolmenu.Ablak(x, y, tempSzelesseg, 1, BackGround, shadowbool, 0);
                 //konzolmenu.KomplexAblak(x + Rx, y + Ry, tempSzelesseg, 1, BackGround, ForeGround, shadowbool, shadowtype, shadowBackGround, shadowForeGround, "", ' ', false);
                 //konzolmenu.MTextBlock(elemek, x + Rx, y + Ry, ForeGround, BackGround);
                 for (int i = 0; i < elemek.Length; i++)
                 {
                     //(i * tempSzelesseg / elemek.Length)
-                    konzolmenu.TextBlock(elemek[i], x + Rx + width * i, y + Ry, ForeGround, BackGround);
+                    konzolmenu.TextBlock(elemek[i], x + Rx + width * i, y, ForeGround, BackGround);
                 }
-            } else
+            }
+            else
             {
-                konzolmenu.Ablak(x + Rx, y + Ry, width, height, BackGround, shadowbool, 0);
+                konzolmenu.Ablak(x+Rx, y+Ry, width, height, BackGround, shadowbool, 0);
+
                 //konzolmenu.KomplexAblak(x + Rx, y + Ry, width, height, BackGround, ForeGround, shadowbool, shadowtype, shadowBackGround, shadowForeGround, "", ' ', false);
-                
+
                 if (elemek.Length > height)
                 {
                     string[] sortedElemek = new string[height];
@@ -100,19 +124,31 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
                     {
                         sortedElemek[i] = elemek[i];
                     }
-                    konzolmenu.MTextBlock(sortedElemek, x + Rx, y + Ry, ForeGround, BackGround);
-                } else konzolmenu.MTextBlock(elemek, x + Rx, y + Ry, ForeGround, BackGround);
-                
-               // konzolmenu.MTextBlock(sortedElemek, x + Rx, y + Ry, ForeGround, BackGround);
+                    konzolmenu.MTextBlock(sortedElemek, x+Rx, y+Ry, ForeGround, BackGround);
+                }
+                else konzolmenu.MTextBlock(elemek, x + Rx, y + Ry, ForeGround, BackGround);
+
+
+                konzolmenu.Line('║', height, x + width - 1+Rx, y+Ry, Orientation.vertical, ForeGround, BackGround);
+                Console.SetCursorPosition(x + width - 1+Rx, y+Ry);
+                Console.Write('O');
+                Console.SetCursorPosition(x + width - 1 + Rx, y + height - 1+Ry);
+                Console.Write('O');
+
+
+
+
+                // konzolmenu.MTextBlock(sortedElemek, x + Rx, y + Ry, ForeGround, BackGround);
             }
-            
+
+
         }
-        public override object Update(int x, int y) 
+        public override object Update(int x, int y)
         {
             konzolmenu konzolmenu = new konzolmenu();
-            return konzolmenu.MenuLista(elemek, Rx+x, Ry+y, width, height, ForeGround, BackGround, menu, SelectedMenu, orientation, shadowbool, showScrol);
+            return konzolmenu.MenuLista(elemek, Rx + x, Ry + y, width, height, ForeGround, BackGround, menu, SelectedMenu, orientation, shadowbool, showScrol);
         }
-        
+
 
 
     }

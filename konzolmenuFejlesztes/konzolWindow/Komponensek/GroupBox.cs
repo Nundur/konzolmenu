@@ -9,14 +9,15 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
 {
     class GroupBox : KonzolKomponens
     {
+        public override string name { get; set; } = "GroupBox";
         public override int Rx { get; set; } = 0;
         public override int Ry { get; set; } = 0;
-
+        public override string header { get; set; }
         public override int width { get; set; } = 10;
         public override int height { get; set; } = 2;
 
-        public ConsoleColor ForeGround { get; set; }
-        public ConsoleColor BackGround { get; set; }
+        public override ConsoleColor ForeGround { get; set; }
+        public override ConsoleColor BackGround { get; set; }
 
         public List<KonzolKomponens> Komponensek { get; set; } = new List<KonzolKomponens>();
 
@@ -49,7 +50,7 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
             setCordinates();
             Console.ForegroundColor = ForeGround; Console.BackgroundColor = BackGround;
             // TOP
-            Console.SetCursorPosition(x+Rx, y+Ry);
+            Console.SetCursorPosition(x + Rx, y + Ry);
             Console.Write("┌");
             for (int i = 0; i < width - 2; i++) Console.Write("─");
             Console.Write("┐");
@@ -57,14 +58,14 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
             // MIDDLE
             for (int i = 1; i < height - 1; i++)
             {
-                Console.SetCursorPosition(x+Rx, y+Ry + i);
+                Console.SetCursorPosition(x + Rx, y + Ry + i);
                 Console.Write("│");
-                Console.SetCursorPosition(x+Rx + width - 1, y+Ry + i);
+                Console.SetCursorPosition(x + Rx + width - 1, y + Ry + i);
                 Console.Write("│");
             }
 
             // BOTTOM
-            Console.SetCursorPosition(x+Rx, y+Ry + height - 1);
+            Console.SetCursorPosition(x + Rx, y + Ry + height - 1);
             Console.Write("└");
             for (int i = 0; i < width - 2; i++) Console.Write("─");
             Console.Write("┘");
@@ -72,7 +73,7 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
             // TITLE
             if (!string.IsNullOrEmpty(title))
             {
-                Console.SetCursorPosition(x+Rx + 2, y+Ry);
+                Console.SetCursorPosition(x + Rx + 2, y + Ry);
                 Console.Write($" {title} ");
             }
         }

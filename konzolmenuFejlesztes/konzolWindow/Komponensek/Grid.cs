@@ -8,9 +8,12 @@ namespace konzolmenuFejlesztes.konzolWindow.Komponensek
 {
     class Grid : KonzolKomponens
     {
+        public override string name { get; set; } = "Grid";
         public override int Rx { get; set; }
         public override int Ry { get; set; }
-
+        public override ConsoleColor ForeGround { get; set; } = ConsoleColor.Black;
+        public override ConsoleColor BackGround { get; set; } = ConsoleColor.Gray;
+        public override string header { get; set; }
         public override int width { get; set; }
         public override int height { get; set; }
 
